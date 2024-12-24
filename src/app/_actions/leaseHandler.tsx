@@ -5,30 +5,32 @@ import { Leaseformstate } from "../_types/lease";
 import { convertZodErrors } from "../_utils/errors";
 
 export const formHandlerAction= async(formdata:FormData):Promise<Leaseformstate>=>{
-  const unvalidatedlease = {
-    StartDate: formdata.get("StartDate") instanceof File || typeof formdata.get("StartDate") === 'object'
-    ? ""  // or some other default value
-    : formdata.get("StartDate") ? formdata.get("StartDate")!.toString().trim() : "",
-      EndDate: formdata.get("EndDate") ? formdata.get("EndDate")!.toString().trim() : "",
-    BaseRent: formdata.get("BaseRent") instanceof File
-      ? "0"
-      : formdata.get("BaseRent")?.toString().trim() ?? "0",
-    AdditionalCharges: formdata.get("AdditionalCharges")?.toString().trim() ?? "",
-    MaintenanceFee: formdata.get("MaintenanceFee") instanceof File
-      ? "0"
-      : formdata.get("MaintenanceFee")?.toString().trim() ?? "",
-    SecurityDeposit: formdata.get("SecurityDeposit") instanceof File
-      ? "0"
-      : formdata.get("SecurityDeposit")?.toString().trim() ?? "",
-    AnnualRentIncrease: formdata.get("AnnualRentIncrease") instanceof File
-      ? "0"
-      : formdata.get("AnnualRentIncrease")?.toString().trim() ?? "",
-    UtilitiesIncluded: formdata.get("Utilities") === "true",
-    LatePaymentPenalty: formdata.get("LatePaymentPenalty")?.toString().trim() ?? "",
-    LeaseType: formdata.get("LeaseType")?.toString().trim() ?? "",
-    userId: formdata.get("userId")?.toString().trim() ?? "",
+  const getStringValue = (key: string): string => {
+    const value = formdata.get(key);
+    if (value instanceof File) {
+      return ""; // Or whatever default value you want for File types
+    }
+    // Ensure it's not an object or handle accordingly
+    if (typeof value === 'object' && value !== null) {
+      console.warn(`Expected a string, but got an object for ${key}:`, value);
+      return ""; // Default empty string for object cases
+    }
+    return value ? value.toString().trim() : "";
   };
-  
+
+  const unvalidatedlease = {
+    StartDate: getStringValue("StartDate"),
+    EndDate: getStringValue("EndDate"),
+    BaseRent: getStringValue("BaseRent") || "0",
+    AdditionalCharges: getStringValue("AdditionalCharges"),
+    MaintenanceFee: getStringValue("MaintenanceFee") || "0",
+    SecurityDeposit: getStringValue("SecurityDeposit") || "0",
+    AnnualRentIncrease: getStringValue("AnnualRentIncrease") || "0",
+    UtilitiesIncluded: formdata.get("Utilities") === "true",
+    LatePaymentPenalty: getStringValue("LatePaymentPenalty"),
+    LeaseType: getStringValue("LeaseType"),
+    userId: getStringValue("userId"),
+  };
 
 const Validatedlease = leaseSchema.safeParse(unvalidatedlease);
 
