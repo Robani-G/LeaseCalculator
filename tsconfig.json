@@ -11,7 +11,9 @@
     "typeRoots": ["node_modules/@types", "types"],
 
     /* Strictness */
-    "strict": false,
+    "strict": true,
+    "strictNullChecks": true,
+
     "noUncheckedIndexedAccess": true,
     "checkJs": true,
 

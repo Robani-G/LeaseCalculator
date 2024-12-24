@@ -19,12 +19,8 @@ export default function Page() {
   <SharedLeasesList />
 </div>
             </>
-)}
-      
+)}   
     </div>
-   
-        
-
-    </>
+     </>
   )
 }
