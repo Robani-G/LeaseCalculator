@@ -1,20 +1,32 @@
-"use server"
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+// Define the expected structure of lease data
+interface LeaseData {
+  AdditionalChargesp?: number;
+  AnnualRentIncreaseP?: number;
+  EndDate?: string;
+  LatepaymentP?: number;
+  LeaseType?: string;
+  MaintenanceFeep?: number;
+  BaseRentp?: number;
+  SecurityDepositp?: number;
+  StartDate?: string;
+  UtilitiesIncluded?: boolean;
+}
+
 export async function POST(req: Request) {
   const body = await req.json();
-  const { userId, ...leaseData } = body;
+  const { userId, ...leaseData }: { userId: string } & LeaseData = body;
 
   if (!userId) {
     return NextResponse.json({ message: 'User ID is missing' }, { status: 400 });
   }
 
   try {
-    console
-    .log("Hello World");
+
     const newLease = await prisma.lease.create({
       data: {
         userId,
