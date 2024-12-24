@@ -15,6 +15,7 @@ const config = {
   "rules": {
     'no-console': 'off',      
     'react/prop-types': 'off', 
+    '@typescript-eslint/no-base-to-string': 'off',
     'no-unused-vars': 'warn',  
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
