@@ -16,7 +16,8 @@ const fetchLeases = async (): Promise<Lease[]> => {
   return response.json();
 };
 
-export const useleases = () => {
+// Renamed function to useLeases to follow the React custom hook naming convention
+export const useLeases = () => {
   return useQuery({
     queryKey: ['leases'],
     queryFn: fetchLeases,

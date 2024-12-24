@@ -1,7 +1,7 @@
 // app/leases/page.tsx
 
 'use client';
-import { useleases } from "~/hooks/uselease";
+import { useLeases } from "~/hooks/uselease";
 import {
   Table,
   TableBody,
@@ -24,13 +24,13 @@ import {
 import React, { useState } from "react";
 import { FaShareAlt } from "react-icons/fa";
 import { LucideSend } from "lucide-react";
-import { useusers } from "~/hooks/useusers";
+import { useUsers } from "~/hooks/useusers";
 import toast from "react-hot-toast";
 
 const LeaseTable = () => {
 
-  const { data: leases, isLoading: leasesLoading, error: leasesError } = useleases();
-  const { data: users, isLoading: usersLoading, error: usersError } = useusers();
+  const { data: leases, isLoading: leasesLoading, error: leasesError } = useLeases();
+  const { data: users, isLoading: usersLoading, error: usersError } = useUsers();
   const [loading, setLoading] = useState(false);
 
   if (leasesError instanceof Error) {

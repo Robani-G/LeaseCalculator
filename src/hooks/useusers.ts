@@ -6,7 +6,7 @@ interface User {
   // Add other fields based on your user data
 }
 
-const fetchusers = async (): Promise<User[]> => {
+const fetchUsers = async (): Promise<User[]> => {
   const response = await fetch('/api/users');
   if (!response.ok) {
     throw new Error('Failed to fetch users');
@@ -14,9 +14,10 @@ const fetchusers = async (): Promise<User[]> => {
   return response.json();
 };
 
-export const useusers = () => {  // Correct naming for custom hook
+// Renamed function to useUsers to follow the React custom hook naming convention
+export const useUsers = () => {
   return useQuery({
     queryKey: ['users'],
-    queryFn: fetchusers,
+    queryFn: fetchUsers,
   });
 };

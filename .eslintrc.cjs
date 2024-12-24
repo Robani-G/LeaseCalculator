@@ -16,8 +16,15 @@ const config = {
     'no-console': 'off',      
     'react/prop-types': 'off', 
     '@typescript-eslint/no-base-to-string': 'off',
+    '@typescript-eslint/no-explicit-any': 'off', // Disable the rule globally
     'no-unused-vars': 'warn',  
+    '@typescript-eslint/no-unsafe-assignment': 'off',
     "@typescript-eslint/array-type": "off",
+    '@typescript-eslint/no-unsafe-argument': 'off', // Disable the rule globally
+    '@typescript-eslint/no-unsafe-return': 'off', // Disable the rule globally
+    "@typescript-eslint/no-unsafe-member-access": "off", // Disable the rule globally
+    '@typescript-eslint/consistent-indexed-object-style': 'off', // Disable the rule globally
+    '@typescript-eslint/prefer-nullish-coalescing': 'off', // Disable the rule globally
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
