@@ -1,15 +1,15 @@
 "use server"
 
-import { promises } from "dns";
 import { leaseSchema } from "../_schemas/leaseSchema"
 import { Leaseformstate } from "../_types/lease";
 import { convertZodErrors } from "../_utils/errors";
-import { ChartNoAxesColumnIcon } from "lucide-react";
 
 export const formHandlerAction= async(formdata:FormData):Promise<Leaseformstate>=>{
   const unvalidatedlease = {
-    StartDate: formdata.get("StartDate") ? formdata.get("StartDate")!.toString().trim() : "",
-    EndDate: formdata.get("EndDate") ? formdata.get("EndDate")!.toString().trim() : "",
+    StartDate: formdata.get("StartDate") instanceof File || typeof formdata.get("StartDate") === 'object'
+    ? ""  // or some other default value
+    : formdata.get("StartDate") ? formdata.get("StartDate")!.toString().trim() : "",
+      EndDate: formdata.get("EndDate") ? formdata.get("EndDate")!.toString().trim() : "",
     BaseRent: formdata.get("BaseRent") instanceof File
       ? "0"
       : formdata.get("BaseRent")?.toString().trim() ?? "0",
@@ -96,7 +96,7 @@ if (!Validatedlease.success) {
       LatepaymentP:LatepaymentP,
       StartDate:StartDate,
       UtilitiesIncluded:UtilitiesIncluded,
-      userId: formdata.get("userId")?.toString().trim() || ""
+      userId: formdata.get("userId")?.toString().trim() ?? ""
 
 
 
