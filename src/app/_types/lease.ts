@@ -1,5 +1,13 @@
 
-export interface LeaseFormState {
+
+
+export interface StringMap{
+    [key:string]:string;
+}
+export interface StringToBooleanMap{
+    [key:string]:string;
+}
+export interface Leaseformstate {
     errors?: Record<string, string>; // Assuming errors map to string messages
     successMsg?: string;
     data?: unknown; // Use `unknown` instead of `any` for stricter typing
@@ -15,12 +23,3 @@ export interface LeaseFormState {
       userId: string;
     };
   }
-  
-
-
-export interface StringMap{
-    [key:string]:string;
-}
-export interface StringToBooleanMap{
-    [key:string]:string;
-}
