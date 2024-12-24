@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect, useState } from 'react';
 import {
     Table,
@@ -34,23 +34,24 @@ const SharedLeasesList = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchSharedLeases = async () => {
-      try {
-        const response = await fetch('/api/sharedLease');
-        if (!response.ok) {
-          throw new Error('Failed to fetch shared leases');
-        }
-        const data: SharedLease[] = await response.json(); // Type the response data
-        setSharedLeases(data);
-      } catch (error: any) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchSharedLeases();
+    // Explicitly handle the promise by adding `void` before the async function call
+    void fetchSharedLeases();
   }, []);
+
+  const fetchSharedLeases = async () => {
+    try {
+      const response = await fetch('/api/sharedLease');
+      if (!response.ok) {
+        throw new Error('Failed to fetch shared leases');
+      }
+      const data: SharedLease[] = await response.json(); // Type the response data
+      setSharedLeases(data);
+    } catch (error: any) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (loading) {
     return <p>Loading shared leases...</p>;
