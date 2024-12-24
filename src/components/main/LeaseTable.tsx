@@ -1,13 +1,12 @@
 // app/leases/page.tsx
 
 'use client';
-import { useLeases } from "~/hooks/uselease";
+import { useleases } from "~/hooks/uselease";
 import {
   Table,
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -18,7 +17,6 @@ import { Badge } from "~/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -27,12 +25,11 @@ import React, { useState } from "react";
 import { FaShareAlt } from "react-icons/fa";
 import { LucideSend } from "lucide-react";
 import { useusers } from "~/hooks/useusers";
-import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 const LeaseTable = () => {
 
-  const { data: leases, isLoading: leasesLoading, error: leasesError } = useLeases();
+  const { data: leases, isLoading: leasesLoading, error: leasesError } = useleases();
   const { data: users, isLoading: usersLoading, error: usersError } = useusers();
   const [loading, setLoading] = useState(false);
 
@@ -85,7 +82,7 @@ const LeaseTable = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-           {leases.map((lease: any,index:number) => (
+           {leases?.map((lease: any,index:number) => (
           <TableRow key={lease.id}>
             <TableCell className="font-medium">{index+1}</TableCell>
             <TableCell className="font-medium">{lease.monthlyRentAmount}</TableCell>

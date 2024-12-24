@@ -1,7 +1,14 @@
-// hooks/useLeases.ts
 import { useQuery } from '@tanstack/react-query';
 
-const fetchLeases = async () => {
+interface Lease {
+  id: number;
+  name: string;
+  startDate: string;
+  endDate: string;
+  // Add other properties based on your lease data
+}
+
+const fetchLeases = async (): Promise<Lease[]> => {
   const response = await fetch('/api/leases');
   if (!response.ok) {
     throw new Error('Failed to fetch leases');
@@ -9,9 +16,9 @@ const fetchLeases = async () => {
   return response.json();
 };
 
-export const useLeases = () => {
+export const useleases = () => {
   return useQuery({
-    queryKey: ['leases'], // The key for the query
-    queryFn: fetchLeases,  // The function to fetch the data
+    queryKey: ['leases'],
+    queryFn: fetchLeases,
   });
 };

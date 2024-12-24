@@ -5,15 +5,31 @@ import {
     TableBody,
     TableCaption,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
-  } from "@/components/ui/table"
-  import { Card } from "~/components/ui/card";
-   
+} from "@/components/ui/table"
+import { Card } from "~/components/ui/card";
+
+// Define types for shared leases, users, and leases
+interface User {
+  name: string;
+}
+
+interface Lease {
+  leaseType: string;
+  monthlyRentAmount: number;
+}
+
+interface SharedLease {
+  id: number;
+  user: User;
+  lease: Lease;
+}
+
 const SharedLeasesList = () => {
-  const [sharedLeases, setSharedLeases] = useState<any[]>([]);
+  // Use SharedLease type for the state
+  const [sharedLeases, setSharedLeases] = useState<SharedLease[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,7 +40,7 @@ const SharedLeasesList = () => {
         if (!response.ok) {
           throw new Error('Failed to fetch shared leases');
         }
-        const data = await response.json();
+        const data: SharedLease[] = await response.json(); // Type the response data
         setSharedLeases(data);
       } catch (error: any) {
         setError(error.message);
@@ -45,54 +61,29 @@ const SharedLeasesList = () => {
   }
 
   return (
-    // <div>
-    //   <h2>Shared Leases</h2>
-    //   <table>
-    //     <thead>
-    //       <tr>
-    //         <th>Lease ID</th>
-    //         <th>Lease Type</th>
-    //         <th>User</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       {sharedLeases.map((sharedLease) => (
-    //         <tr key={sharedLease.id}>
-    //           <td>{sharedLease.lease.id}</td>
-    //           <td>{sharedLease.lease.leaseType}</td>
-    //           <td>{sharedLease.user.name}</td>
-    //         </tr>
-    //       ))}
-    //     </tbody>
-    //   </table>
-    // </div>
     <Card className="sm:min-w-[520px] w-[350px]">
-
-    <Table>
-    <TableCaption>A list of your recent Shared Leases.</TableCaption>
-    <TableHeader>
-      <TableRow>
-        <TableHead className="w-[100px]">#</TableHead>
-        <TableHead>Sent by</TableHead>
-        <TableHead>Leaser Type</TableHead>
-        <TableHead >Base Rent</TableHead>
-      </TableRow>
-    </TableHeader>
-    <TableBody>
-      {sharedLeases.map((sharedLease,index:number) => (
-        <TableRow key={sharedLease.id}>
-        <TableCell className="font-medium">{index +1 }</TableCell>
-          <TableCell>{sharedLease.user.name}</TableCell>
-          <TableCell className="font-medium">{sharedLease.lease.leaseType}</TableCell>     
-               <TableCell className="font-medium ">{sharedLease.lease.monthlyRentAmount}</TableCell>
-
-        
-        </TableRow>
-      ))}
-    </TableBody>
-   
-  </Table>
-  </Card>
+      <Table>
+        <TableCaption>A list of your recent Shared Leases.</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[100px]">#</TableHead>
+            <TableHead>Sent by</TableHead>
+            <TableHead>Leaser Type</TableHead>
+            <TableHead>Base Rent</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {sharedLeases.map((sharedLease, index) => (
+            <TableRow key={sharedLease.id}>
+              <TableCell className="font-medium">{index + 1}</TableCell>
+              <TableCell>{sharedLease.user.name}</TableCell>
+              <TableCell className="font-medium">{sharedLease.lease.leaseType}</TableCell>
+              <TableCell className="font-medium">{sharedLease.lease.monthlyRentAmount}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </Card>
   );
 };
 

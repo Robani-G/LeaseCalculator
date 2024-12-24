@@ -1,5 +1,7 @@
 "use client"
 import React, { useRef, useState } from 'react'
+import type { StringMap } from '~/app/_types/lease';
+
 import {
   Card,
   CardContent,
@@ -21,7 +23,6 @@ import { Button } from '~/components/ui/button'
 import DatePickerDemo from '../ui/DatePicker'
 import { Checkbox } from '../ui/checkbox'
 import { formHandlerAction } from '~/app/_actions/leaseHandler'
-import { StringMap } from '~/app/_types/lease'
 import toast from 'react-hot-toast'
 import Invoice from './Invoice'
 
