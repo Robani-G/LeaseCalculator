@@ -8,21 +8,27 @@ import { ChartNoAxesColumnIcon } from "lucide-react";
 
 export const formHandlerAction= async(formdata:FormData):Promise<Leaseformstate>=>{
   const unvalidatedlease = {
-    StartDate: formdata.get("StartDate")?.toString().trim() ?? "",
-  EndDate: formdata.get("EndDate")?.toString().trim() ?? "",
-  BaseRent: formdata.get("BaseRent") instanceof File 
-    ? "0" 
-    : formdata.get("BaseRent")?.toString().trim() ?? "0",
-  AdditionalCharges: formdata.get("AdditionalCharges")?.toString().trim() ?? "",
-  MaintenanceFee: formdata.get("MaintenanceFee")?.toString().trim() ?? "",
-  SecurityDeposit: formdata.get("SecurityDeposit")?.toString().trim() ?? "",
-  AnnualRentIncrease: formdata.get("AnnualRentIncrease")?.toString().trim() ?? "",
-  UtilitiesIncluded: formdata.get("Utilities") === "true",
-  LatePaymentPenalty: formdata.get("LatePaymentPenalty")?.toString().trim() ?? "",
-  LeaseType: formdata.get("LeaseType")?.toString().trim() ?? "",
-
-    
-};
+    StartDate: formdata.get("StartDate") ? formdata.get("StartDate")!.toString().trim() : "",
+    EndDate: formdata.get("EndDate") ? formdata.get("EndDate")!.toString().trim() : "",
+    BaseRent: formdata.get("BaseRent") instanceof File
+      ? "0"
+      : formdata.get("BaseRent")?.toString().trim() ?? "0",
+    AdditionalCharges: formdata.get("AdditionalCharges")?.toString().trim() ?? "",
+    MaintenanceFee: formdata.get("MaintenanceFee") instanceof File
+      ? "0"
+      : formdata.get("MaintenanceFee")?.toString().trim() ?? "",
+    SecurityDeposit: formdata.get("SecurityDeposit") instanceof File
+      ? "0"
+      : formdata.get("SecurityDeposit")?.toString().trim() ?? "",
+    AnnualRentIncrease: formdata.get("AnnualRentIncrease") instanceof File
+      ? "0"
+      : formdata.get("AnnualRentIncrease")?.toString().trim() ?? "",
+    UtilitiesIncluded: formdata.get("Utilities") === "true",
+    LatePaymentPenalty: formdata.get("LatePaymentPenalty")?.toString().trim() ?? "",
+    LeaseType: formdata.get("LeaseType")?.toString().trim() ?? "",
+    userId: formdata.get("userId")?.toString().trim() ?? "",
+  };
+  
 
 const Validatedlease = leaseSchema.safeParse(unvalidatedlease);
 
