@@ -8,19 +8,19 @@ import { ChartNoAxesColumnIcon } from "lucide-react";
 
 export const formHandlerAction= async(formdata:FormData):Promise<Leaseformstate>=>{
   const unvalidatedlease = {
-    StartDate: (formdata.get("StartDate") || "").toString().trim(),   
-    EndDate: (formdata.get("EndDate") || "").toString().trim(),
-    BaseRent: 
-        formdata.get("BaseRent") instanceof File 
-            ? "0" 
-            : ((formdata.get("BaseRent") || "0").toString().trim()),
-            AdditionalCharges: (formdata.get("AdditionalCharges") || "").toString().trim(),
-    MaintenanceFee: (formdata.get("MaintenanceFee") || "").toString().trim(),
-    SecurityDeposit: (formdata.get("SecurityDeposit") || "").toString().trim(),
-    AnnualRentIncrease: (formdata.get("AnnualRentIncrease") || "").toString().trim(),
+    StartDate: (formdata.get("StartDate")?.toString().trim() ?? ""),
+    EndDate: (formdata.get("EndDate")?.toString().trim() ?? ""),
+    BaseRent: formdata.get("BaseRent") instanceof File
+      ? "0"
+      : ((formdata.get("BaseRent")?.toString().trim() ?? "0")),
+    AdditionalCharges: (formdata.get("AdditionalCharges")?.toString().trim() ?? ""),
+    MaintenanceFee: (formdata.get("MaintenanceFee")?.toString().trim() ?? ""),
+    SecurityDeposit: (formdata.get("SecurityDeposit")?.toString().trim() ?? ""),
+    AnnualRentIncrease: (formdata.get("AnnualRentIncrease")?.toString().trim() ?? ""),
     UtilitiesIncluded: formdata.get("Utilties") === "true",
-    LatePaymentPenalty: (formdata.get("LatePaymentPenalty") || "").toString().trim(),
-    LeaseType: (formdata.get("LeaseType") || "").toString().trim(),
+    LatePaymentPenalty: (formdata.get("LatePaymentPenalty")?.toString().trim() ?? ""),
+    LeaseType: (formdata.get("LeaseType")?.toString().trim() ?? ""),
+    
 };
 
 const Validatedlease = leaseSchema.safeParse(unvalidatedlease);

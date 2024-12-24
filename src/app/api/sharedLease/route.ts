@@ -33,6 +33,7 @@ export async function GET(req: NextRequest) {
     try {
       // Fetch the list of shared leases with related lease and user data
       const sharedLeases = await prisma.sharedLease.findMany({
+        
         include: {
           lease: true,  // Include related lease data
           user: true,   // Include related user data
